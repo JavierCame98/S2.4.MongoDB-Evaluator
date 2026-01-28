@@ -5,7 +5,7 @@ db.restaurants.find();
 db.restaurants.find({}, {_id:0, restaurant_id:1, name:1});
 
 // 3. Mostrar el restaurant_id, name, borough i cuisine.
-db.restaurants.find({}, {id_:0, restaurant_id:1, name:1, borough:1, cuisine:1});
+db.restaurants.find({}, {_id:0, restaurant_id:1, name:1, borough:1, cuisine:1});
 
 // 4. Mostrar restaurant_id, name, borough i zip code.
 db.restaurants.find({}, {"_id":0, "restaurant_id":1, "name":1, "borough":1, "address.zipcode":1});
@@ -23,10 +23,10 @@ db.restaurants.find({"borough" : "Bronx"}, {_id: 0}).skip(5).limit(5);
 db.restaurants.find({"grades.score" : {"$gt" : 90}}, {"_id":0});
 
 // 9. Trobar els restaurants amb un score de més de 80 però menys que 100.
-db.restaurants.find({"grades.score" : {"gt" : 80}, {"$lt" : 100}});
+db.restaurants.find({"grades.score" : {$gt : 80}, {$lt : 100}});
 
 // 10. Trobar els restaurants amb longitud menor que -95.754168.
-db.restaurants.find({"address.coord.1": {$lt:95.754168}});
+db.restaurants.find({"address.coord.0": {$lt:-95.754168}});
 
 // 11. Trobar restaurants que no preparen 'American', amb qualificació > 70 i longitud < -65.754168.
 db.restaurants.find({$and:[{cuisine: {$ne:"American"}}, {"grades.score": {$gt:70}}, {"address.coord.0": {$lt:-65.754168}}]});
@@ -59,7 +59,7 @@ db.restaurants.find({$nor:[{borough:"Staten Island"},{borough:"Queens"},{borough
 db.restaurants.find({"grades.score":{$lte:10}},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
 
 // 21. Trobar restaurants que preparen peix, no 'American' ni 'Chinees', o nom comença amb 'Wil'.
-db.restaurants.find({$or:[{cuisine:"Seafood"},{cuisine:{$nin:["American", "Chinese"]}, {name:{$regex:/^Wil/}}]},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
+db.restaurants.find({$or: [{ cuisine: "Seafood" },{ cuisine: { $nin: ["American", "Chinese"]}},{ name: { $regex: /^Wil/ }}]},{ restaurant_id: 1, name: 1, borough: 1, cuisine: 1, _id: 0 });
 
 // 22. Trobar restaurant_id, name, i grades per grau "A", score 11, i data "2014-08-11T00:00:00Z".
 db.restaurants.find({grades:{$elemMatch:{grade:"A",score:11,date:ISODate("2014-08-11T00:00:00Z")}}},{restaurant_id:1,name:1,grades:1,_id:0});
