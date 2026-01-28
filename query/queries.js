@@ -23,13 +23,13 @@ db.restaurants.find({"borough" : "Bronx"}, {_id: 0}).skip(5).limit(5);
 db.restaurants.find({"grades.score" : {"$gt" : 90}}, {"_id":0});
 
 // 9. Trobar els restaurants amb un score de més de 80 però menys que 100.
-
+db.restaurants.find({"grades.score" : {"gt" : 80}, {"$lt" : 100}});
 
 // 10. Trobar els restaurants amb longitud menor que -95.754168.
-
+db.restaurants.find({"address.coord.1": {$lt:95.754168}});
 
 // 11. Trobar restaurants que no preparen 'American', amb qualificació > 70 i longitud < -65.754168.
-
+db.restaurants.find({$and:[{cuisine:{$ne:"American"}},{"grades.score":{$gt:70}},{"address.coord.0":{$lt:-65.754168}}]});
 
 // 12. El mateix que l'anterior però sense usar operador $and.
 
